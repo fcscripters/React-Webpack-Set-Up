@@ -5,7 +5,7 @@ var List = require('./List.js');
 var Listtitle = require('./List-Title.js');
 var Newitem = require('./Newitem.js');
 var ScrollToTop = require('react-scroll-up');
-
+var Countdown = require('./react-countdown.js');
 var App = React.createClass({
 
   render: function () {
@@ -23,12 +23,11 @@ var App = React.createClass({
     return(
       <div className='app-container'>
         <Header title='Fridge' />
-          <Newitem />
-          <Listtitle {...listtitle} />
+
+        <Newitem />
+        <Listtitle {...listtitle} />
         <List {...listItems}/>
-        <ScrollToTop showUnder={250}>
-          <span>SOHIL</span>
-        </ScrollToTop>
+        <Countdown />
         <Footer title="Thank You For Visiting The Fridge" />
 
       </div>
