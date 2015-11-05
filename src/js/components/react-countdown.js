@@ -1,22 +1,27 @@
-'use strict';
 var React = require('react');
+
 var Countdown = React.createClass({
+
+  displayNone: function(e){
+    document.getElementById('PopUp').style.display = "none";
+    this.props.afterTimeOut();
+  },
+
   getInitialState: function(){
     return {time: this.props.min*60}
   },
+
   update: function(){
     var newTime = this.state.time - 1;
-    console.log(newTime);
     this.setState({time:newTime});
     if(this.state.time ===0){
-      console.log("clear!!!!");
       clearInterval(this.decr);
       this.props.afterUnmount
-
     }
   },
+
   render: function(){
-  var divStyle = {
+  var moreThanMin = {
     "text-align":"center",
     "font-size": 10,
     "text-shadow": "1px 1px 2px #000000",
@@ -30,7 +35,8 @@ var Countdown = React.createClass({
     "background-color": "rgba(0,0,3,0.3)",
     "font-family": "Courier New"
   };
-  var divStyle2 = {
+
+  var lessThanMin = {
     "text-align":"center",
     "font-size": 10,
     padding: 10,
@@ -44,6 +50,7 @@ var Countdown = React.createClass({
     "background-color": "rgba(0,0,3,0.3)",
     "font-family": "Courier New"
   };
+
   var promptStyle = {
     "text-align":"center",
     "font-size": 10,
@@ -60,7 +67,23 @@ var Countdown = React.createClass({
     "justify-content":"center",
     "align-items":"center",
     display:"flex"
+  };
 
+  var btn = {
+   "background-color":"#44c767",
+   "-moz-border-radius":"28px",
+   "-webkit-border-radius":"28px",
+   "border-radius":"24px",
+  "border":"1px solid #18ab29",
+   "display":"inline-block",
+   "cursor":"pointer",
+   "color":"#ffffff",
+   "font-family": "Courier New",
+   "font-size":"16px",
+   padding:14,
+   margin:10,
+   "text-decoration":"none",
+   "text-shadow":"0px 1px 0px #2f6627"
   };
 
   var m = Math.floor(this.state.time /60);
@@ -68,31 +91,27 @@ var Countdown = React.createClass({
 
   if(this.state.time>59){
     return(
-      <div style = {divStyle}>
+      <div style = {moreThanMin}>
         <h1>{m,"m ",s,"s"}</h1>
       </div>
     )
   }else if(this.state.time>0){
     return(
-      <div style = {divStyle2}>
+      <div style = {lessThanMin}>
         <h1>{s,"s"}</h1>
       </div>
     )
   }else{
     return(
-      <div style = {promptStyle}>
-        <h1>{"Message: ", this.props.msg}</h1>
-        <button onClick={this.props.bringTheFunc} >OK</button>
+      <div style = {promptStyle} id = "PopUp">
+        <h1>{this.props.msg}</h1>
+        <button style = {btn} onClick={this.displayNone} >OK</button>
       </div>
-    )
-  }
+      )
+    }
   },
   componentDidMount: function(){
     this.decr = setInterval(this.update,1000)
-  },
-  componentWillUnmount: function(){
-    console.log("unMounted!!!!!")
-    this.props.afterUnmount
   }
 })
 

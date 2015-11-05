@@ -8,7 +8,7 @@ var ScrollToTop = require('react-scroll-up');
 var Countdown = require('./react-countdown.js');
 var App = React.createClass({
 
-afterUnmount : function(){
+afterTimeOut : function(){
   console.log("we have unmounted the react horse");
 },
 
