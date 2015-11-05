@@ -8,9 +8,11 @@ var ScrollToTop = require('react-scroll-up');
 var Countdown = require('./react-countdown.js');
 var App = React.createClass({
 
+afterUnmount : function(){
+  console.log("we have unmounted the react horse");
+},
+
   render: function () {
-
-
     var listItems = {
       fridgeItems:[{name:"banana",exp:"22/10/2015",owner:'Sohil'},{name:"banana",exp:"22/10/2015",owner:'Sohil'},{name:"banana",exp:"22/10/2015",owner:'Sohil'},{name:"banana",exp:"22/10/2015",owner:'Sohil'}]
     };
@@ -19,19 +21,15 @@ var App = React.createClass({
       expiry:'Expiry',
       owner:'Owner'
     };
-
     return(
       <div className='app-container'>
-        <Header title='Fridge' />
-
-        <Newitem />
-        <Listtitle {...listtitle} />
+        <Header title='Fridge'/>
+        <Newitem/>
+        <Listtitle {...listtitle}/>
         <List {...listItems}/>
-        <Countdown />
-        <Footer title="Thank You For Visiting The Fridge" />
-
+        <Countdown min = {0.1} msg ="Close the bloody fridge" afterUnmount = {this.afterUnmount}/>
+        <Footer title="Thank You For Visiting The Fridge"/>
       </div>
-
     );
   }
 });
